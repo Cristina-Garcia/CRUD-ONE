@@ -26,25 +26,8 @@ const createNewLine = (nombre, email) => {
 }
 const table = document.querySelector('[data-table]')
 
-const listClients = () => {
-  const promise = new Promise((resolve, reject) => {
-    const http = new XMLHttpRequest()
-
-    //Abrir http(metodo,url)
-    http.open('GET', 'http://localhost:3000/perfil')
-    http.send()
-
-    http.onload = () => {
-      const response = JSON.parse(http.response)
-      if (http.status >= 400) {
-        reject(response)
-      } else {
-        resolve(response)
-      }
-    }
-  })
-  return promise
-}
+const listClients = () =>
+  fetch('http://localhost:3000/perfil').then((respuesta) => respuesta.json())
 
 listClients()
   .then((data) => {
